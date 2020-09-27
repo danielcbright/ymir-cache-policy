@@ -1,9 +1,9 @@
-# InSpec test for recipe ymir-cache::default
+# InSpec test for recipe ymir-api::default
 
 # Test data bag attributes
 input('audit_reporter', value: 'chef-automate')
 input('audit_fetcher', value: 'chef-automate')
-input('ntp_servers', value: ["time.google.com", "time1.google.com", "time2.google.com", "time3.google.com", "time4.google.com", "automate.dbright.io"])
+input('ntp_servers', value: %w(time.google.com time1.google.com time2.google.com time3.google.com time4.google.com automate.dbright.io))
 
 control 'attribute-data-bag-inheritance' do
   title 'Attribute Data Bag Inheritance'
@@ -11,8 +11,8 @@ control 'attribute-data-bag-inheritance' do
   impact 1.0
 
   describe json('/tmp/node.json') do
-    its(['audit', 'reporter']) { should eq input('audit_reporter') }
-    its(['audit', 'fetcher']) { should eq input('audit_fetcher') }
-    its(['ntp', 'servers']) { should eq input('ntp_servers') }
+    its(%w(audit reporter)) { should eq input('audit_reporter') }
+    its(%w(audit fetcher)) { should eq input('audit_fetcher') }
+    its(%w(ntp servers)) { should eq input('ntp_servers') }
   end
 end
