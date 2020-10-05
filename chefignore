@@ -62,6 +62,7 @@ examples/*
 features/*
 Guardfile
 kitchen.yml*
+kitchen.local.yml*
 mlc_config.json
 Procfile
 Rakefile
